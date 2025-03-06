@@ -28,6 +28,17 @@
 			}
 		</script>
 
+		<!-- script to save auth jwt token in local storage -->
+		<script>
+			window.addEventListener("message", (event) => {
+				const existingToken = localStorage.getItem("token");
+
+				if (event.data.token && event.data.token !== existingToken) {
+					localStorage.setItem("token", event.data.token);
+				}
+			});
+		</script>
+		
 		<script>
 			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 			(() => {
