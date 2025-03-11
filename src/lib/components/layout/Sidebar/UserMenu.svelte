@@ -151,7 +151,7 @@
 				</a>
 			{/if}
 
-			<hr class=" border-gray-50 dark:border-gray-850 my-1 p-0" />
+			<!-- <hr class=" border-gray-50 dark:border-gray-850 my-1 p-0" /> 
 
 			<button
 				class="flex rounded-md py-2 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition"
@@ -182,7 +182,7 @@
 					</svg>
 				</div>
 				<div class=" self-center truncate">{$i18n.t('Sign Out')}</div>
-			</button>
+			</button> -->
 
 			{#if $activeUserIds?.length > 0}
 				<hr class=" border-gray-50 dark:border-gray-850 my-1 p-0" />

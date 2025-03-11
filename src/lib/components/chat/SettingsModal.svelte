@@ -201,28 +201,28 @@
 				'chatactivity'
 			]
 		},
-		{
-			id: 'account',
-			title: 'Account',
-			keywords: [
-				'account',
-				'profile',
-				'security',
-				'privacy',
-				'settings',
-				'login',
-				'useraccount',
-				'userdata',
-				'api',
-				'apikey',
-				'userprofile',
-				'profiledetails',
-				'accountsettings',
-				'accountpreferences',
-				'securitysettings',
-				'privacysettings'
-			]
-		},
+		// {
+		// 	id: 'account',
+		// 	title: 'Account',
+		// 	keywords: [
+		// 		'account',
+		// 		'profile',
+		// 		'security',
+		// 		'privacy',
+		// 		'settings',
+		// 		'login',
+		// 		'useraccount',
+		// 		'userdata',
+		// 		'api',
+		// 		'apikey',
+		// 		'userprofile',
+		// 		'profiledetails',
+		// 		'accountsettings',
+		// 		'accountpreferences',
+		// 		'securitysettings',
+		// 		'privacysettings'
+		// 	]
+		// },
 		{
 			id: 'admin',
 			title: 'Admin',
@@ -515,7 +515,7 @@
 								</div>
 								<div class=" self-center">{$i18n.t('Chats')}</div>
 							</button>
-						{:else if tabId === 'account'}
+						<!-- {:else if tabId === 'account'}
 							<button
 								class="px-0.5 py-1 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
 								'account'
@@ -540,7 +540,7 @@
 									</svg>
 								</div>
 								<div class=" self-center">{$i18n.t('Account')}</div>
-							</button>
+							</button> -->
 						{:else if tabId === 'about'}
 							<button
 								class="px-0.5 py-1 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
@@ -636,13 +636,13 @@
 					/>
 				{:else if selectedTab === 'chats'}
 					<Chats {saveSettings} />
-				{:else if selectedTab === 'account'}
+				<!-- {:else if selectedTab === 'account'}
 					<Account
 						{saveSettings}
 						saveHandler={() => {
 							toast.success($i18n.t('Settings saved successfully!'));
 						}}
-					/>
+					/> -->
 				{:else if selectedTab === 'about'}
 					<About />
 				{/if}

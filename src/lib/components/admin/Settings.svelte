@@ -22,7 +22,7 @@
 
 	const i18n = getContext('i18n');
 
-	let selectedTab = 'general';
+	let selectedTab = 'models';
 
 	onMount(() => {
 		const containerElement = document.getElementById('admin-settings-tabs-container');
@@ -43,7 +43,7 @@
 		id="admin-settings-tabs-container"
 		class="tabs flex flex-row overflow-x-auto gap-2.5 max-w-full lg:gap-1 lg:flex-col lg:flex-none lg:w-40 dark:text-gray-200 text-sm font-medium text-left scrollbar-none"
 	>
-		<button
+		<!-- <button
 			class="px-0.5 py-1 min-w-fit rounded-lg flex-1 lg:flex-none flex text-right transition {selectedTab ===
 			'general'
 				? ''
@@ -67,9 +67,9 @@
 				</svg>
 			</div>
 			<div class=" self-center">{$i18n.t('General')}</div>
-		</button>
+		</button> -->
 
-		<button
+		<!-- <button
 			class="px-0.5 py-1 min-w-fit rounded-lg flex-1 md:flex-none flex text-right transition {selectedTab ===
 			'connections'
 				? ''
@@ -91,7 +91,7 @@
 				</svg>
 			</div>
 			<div class=" self-center">{$i18n.t('Connections')}</div>
-		</button>
+		</button> -->
 
 		<button
 			class="px-0.5 py-1 min-w-fit rounded-lg flex-1 md:flex-none flex text-right transition {selectedTab ===
