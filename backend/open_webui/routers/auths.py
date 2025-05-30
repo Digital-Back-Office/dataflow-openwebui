@@ -864,7 +864,7 @@ def get_dataflow_user(request: Request):
             "jupyterhub-hub-login": ""
         }
         
-        response = requests.get("http://ui-svc.dataflow-studio.svc.cluster.local:8000/api/auth", cookies=cookies, timeout=5)
+        response = requests.get("http://ui-svc.dataflow-studio.svc.cluster.local:8000/hub/ui/api/auth", cookies=cookies, timeout=5)
         
         user_data = response.json()
         if not user_data:
