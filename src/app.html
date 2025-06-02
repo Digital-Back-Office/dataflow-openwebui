@@ -28,76 +28,51 @@
 			}
 		</script>
 
-		<!-- script to save auth jwt token in local storage -->
-		<!-- <script>
-			window.addEventListener("message", (event) => {
-				const existingToken = localStorage.getItem("token");
-
-				if (event.data.token && event.data.token !== existingToken) {
-					localStorage.setItem("token", event.data.token);
-				}
-			});
-		</script> -->
-
+		<!-- DATAFLOW AUTH  -->
 		<script>
 			(async () => {
-			const existingToken = localStorage.getItem("token");
-			if (existingToken) return;
-		
-			try {
-				// Step 1: Auth call to get user object
-				const authResponse = await fetch("api/v1/auths/get-dataflow-user", {
-				method: "GET",
-				credentials: "include" // necessary to send browser cookies
-				});
-		
-				if (!authResponse.ok) {
-				console.error("Auth request failed:", authResponse.status);
-				return;
-				}
-		
-				const user = await authResponse.json();
-				const email = user?.email;
-				const userName = user?.name;
-				if (!email || !userName) {
-				console.error("Email not found in user object.", user);
-				return;
-				}
+				const token = localStorage.getItem("token");
+				if (!token) return;
 
-				const headers = {
-					"Content-Type": "application/json",
-					"x-user-email": email,
-					"x-user-name": userName
-				};
+				// check if jwt is not expired
+				const base64Url = token.split('.')[1];
+				const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+				const jsonPayload = JSON.parse(atob(base64));
 
-				const payload = {
-					email: "",
-					password: ""
-				};
-		
-				// Step 2: Signup call to get JWT token
-				const signupResponse = await fetch("api/v1/auths/signin", {
-				method: "POST",
-				headers: headers,
-				body: JSON.stringify(payload),
-				});
-		
-				if (!signupResponse.ok) {
-				console.error("Signup request failed:", signupResponse.status);
-				return;
+				const now = Math.floor(Date.now() / 1000);
+				if (jsonPayload.exp && jsonPayload.exp > now) return;
+			
+				try {
+					// Fetch dataflow user details
+					const userRes = await fetch("/dataflow/user", { credentials: "include" });
+					if (!userRes.ok) throw new Error(`Auth failed: ${userRes.status}`);
+				
+					const { email, user_name } = await userRes.json();
+					if (!email || !user_name) throw new Error("Missing email or username");
+					
+					console.log("making the signin api call", email, user_name);
+					
+					// Signup using the fetched details
+					const signupRes = await fetch("api/v1/auths/signin", {
+						method: "POST",
+						headers: {
+						"Content-Type": "application/json",
+						"x-user-email": email,
+						"x-user-name": user_name
+						},
+						body: JSON.stringify({ email: "", password: "" })
+					});
+				
+					if (!signupRes.ok) throw new Error(`Signup failed: ${signupRes.status}`);
+				
+					const { token } = await signupRes.json();
+					if (!token) throw new Error("No token received");
+				
+					localStorage.setItem("token", token);
+					window.location.href = "/";
+				} catch (err) {
+					console.error("Auth/signup error:", err);
 				}
-		
-				const responseData = await signupResponse.json();
-				const token = responseData.token;
-				if (token) {
-				localStorage.setItem("token", token);
-				console.log("Token saved to localStorage.");
-				} else {
-				console.error("No token received from signup response.", responseData);
-				}
-			} catch (err) {
-				console.error("Error during auth/signup flow:", err);
-			}
 			})();
 		</script>
 		

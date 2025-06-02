@@ -780,6 +780,15 @@ app.include_router(
 )
 app.include_router(utils.router, prefix="/api/v1/utils", tags=["utils"])
 
+##################################
+#
+# Dataflow Auth (call dataflow apis)
+#
+##################################
+
+from open_webui.routers import dataflow
+app.include_router(dataflow.router, prefix="/dataflow", tags=["dataflow"])
+
 
 ##################################
 #
