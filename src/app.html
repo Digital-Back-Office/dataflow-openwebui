@@ -32,15 +32,7 @@
 		<script>
 			(async () => {
 				const token = localStorage.getItem("token");
-				if (!token) return;
-
-				// check if jwt is not expired
-				const base64Url = token.split('.')[1];
-				const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-				const jsonPayload = JSON.parse(atob(base64));
-
-				const now = Math.floor(Date.now() / 1000);
-				if (jsonPayload.exp && jsonPayload.exp > now) return;
+				if (token) return;
 			
 				try {
 					// Fetch dataflow user details
